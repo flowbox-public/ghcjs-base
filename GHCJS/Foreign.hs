@@ -1,6 +1,7 @@
 {-# LANGUAGE TypeSynonymInstances #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE DefaultSignatures #-}
+
 {- | Basic interop between Haskell and JavaScript.
 
      The principal type here is 'JSRef', which is a lifted type that contains
@@ -55,7 +56,9 @@ module GHCJS.Foreign ( jsTrue
                      , isBoolean
                      , isSymbol
                      , isNumber
-{-                     
+                     , ToJSString (..)
+                     , FromJSString (..)
+{-
                      , toArray
                      , newArray
                      , fromArray
@@ -83,16 +86,20 @@ import           GHCJS.Marshal.Pure
 -}
 import           Data.String (IsString(..))
 import qualified Data.Text as T
-
+import qualified Data.JSString as JST
+import           Data.JSString.Text ( textToJSString, textFromJSString )
 
 class ToJSString a where
   toJSString :: a -> JSString
 
---  toJSString = castRef . ptoJSRef
-
+instance ToJSString T.Text where
+  toJSString = textToJSString
 
 class FromJSString a where
   fromJSString :: JSString -> a
+instance FromJSString T.Text where
+  fromJSString = textFromJSString
+
 
 --  default PFromJSRef
 --  fromJSString = pfromJSRef . castRef
