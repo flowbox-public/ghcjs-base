@@ -1,6 +1,7 @@
 {-# LANGUAGE UnboxedTuples #-}
 
 module JavaScript.Object ( Object
+                         , getJSRef
                          , create
                          , getProp, unsafeGetProp
                          , setProp, unsafeSetProp
@@ -10,7 +11,7 @@ module JavaScript.Object ( Object
 
 
 
-import           Data.JSString
+-- import           Data.JSString
 
 import qualified JavaScript.Array as A
 

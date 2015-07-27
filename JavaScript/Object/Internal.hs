@@ -4,6 +4,7 @@
 
 module JavaScript.Object.Internal
     ( Object(..)
+    , getJSRef
     , create
     , allProps
     , listProps
@@ -14,7 +15,7 @@ module JavaScript.Object.Internal
     , isInstanceOf
     ) where
 
-import           Data.JSString
+import           Data.JSString ( JSString )
 import           Data.Typeable
 
 import qualified GHCJS.Prim                as Prim
@@ -24,6 +25,10 @@ import qualified JavaScript.Array          as JA
 import           JavaScript.Array.Internal (JSArray, SomeJSArray(..))
 
 newtype Object = Object (JSRef ()) deriving (Typeable)
+
+getJSRef :: Object -> JSRef ()
+getJSRef (Object x) = x
+{-# INLINE getJSRef #-}
 
 -- | create an empty object
 create :: IO Object
