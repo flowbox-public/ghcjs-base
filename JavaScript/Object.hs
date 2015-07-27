@@ -2,6 +2,7 @@
 
 module JavaScript.Object ( Object
                          , getJSRef
+                         , fromJSRef
                          , create
                          , getProp, unsafeGetProp
                          , setProp, unsafeSetProp

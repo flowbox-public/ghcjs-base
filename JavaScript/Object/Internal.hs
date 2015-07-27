@@ -5,6 +5,7 @@
 module JavaScript.Object.Internal
     ( Object(..)
     , getJSRef
+    , fromJSRef
     , create
     , allProps
     , listProps
@@ -29,6 +30,10 @@ newtype Object = Object (JSRef ()) deriving (Typeable)
 getJSRef :: Object -> JSRef ()
 getJSRef (Object x) = x
 {-# INLINE getJSRef #-}
+
+fromJSRef :: JSRef () -> Object
+fromJSRef x = Object x
+{-# INLINE fromJSRef #-}
 
 -- | create an empty object
 create :: IO Object
